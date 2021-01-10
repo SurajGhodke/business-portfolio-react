@@ -5,7 +5,6 @@ import Toggle from "./Toggle";
 import { AnimateSharedLayout } from "framer-motion";
 import { useScroll } from "./useScroll";
 import { scrollReveal } from "../animation";
-import { fade } from "./../animation";
 
 const FaqSection = () => {
   const [element, controls] = useScroll();
