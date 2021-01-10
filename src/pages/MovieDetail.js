@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { MovieState } from "./../movieState";
-//animations
+import { useHistory } from "react-router-dom";
+import { MovieState } from "../movieState";
+//Animations
 import { motion } from "framer-motion";
-import { pageAnimation } from "./../animation";
+import { pageAnimation } from "../animation";
 
 const MovieDetail = () => {
   const history = useHistory();
@@ -12,19 +12,21 @@ const MovieDetail = () => {
   const [movies, setMovies] = useState(MovieState);
   const [movie, setMovie] = useState(null);
 
-  //useEffect
+  //UseEffect
   useEffect(() => {
     const currentMovie = movies.filter((stateMovie) => stateMovie.url === url);
     setMovie(currentMovie[0]);
+    console.log(setMovies);
   }, [movies, url]);
+
   return (
     <>
       {movie && (
         <Details
+          exit="exit"
           variants={pageAnimation}
           initial="hidden"
           animate="show"
-          exit="exit"
         >
           <HeadLine>
             <h2>{movie.title}</h2>
@@ -40,7 +42,7 @@ const MovieDetail = () => {
             ))}
           </Awards>
           <ImageDisplay>
-            <img src={movie.secondaryImg} alt="secondimg" />
+            <img src={movie.secondaryImg} alt="movie" />
           </ImageDisplay>
         </Details>
       )}
@@ -67,15 +69,17 @@ const HeadLine = styled.div`
     object-fit: cover;
   }
 `;
-
 const Awards = styled.div`
   min-height: 80vh;
   display: flex;
   margin: 5rem 10rem;
   align-items: center;
   justify-content: space-around;
+  @media (max-width: 1500px) {
+    display: block;
+    margin: 2rem 2rem;
+  }
 `;
-
 const AwardStyle = styled.div`
   padding: 5rem;
   h3 {
@@ -91,7 +95,6 @@ const AwardStyle = styled.div`
     padding: 2rem 0rem;
   }
 `;
-
 const ImageDisplay = styled.div`
   min-height: 50vh;
   img {
@@ -111,4 +114,5 @@ const Award = ({ title, description }) => {
     </AwardStyle>
   );
 };
+
 export default MovieDetail;
